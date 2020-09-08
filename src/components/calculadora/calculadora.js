@@ -5,6 +5,7 @@ export default {
         numeroAnterior: null,
         operador: null,
         operadorClicado: false,
+        valorMemoria: [{/*id:0,*/ valor:0}]
       };
     },
     methods: {
@@ -62,7 +63,32 @@ export default {
           parseFloat(this.numeroAnterior),
           parseFloat(this.valorCorrente),
           )}`;
-          this.numeroAnterior = null;
+          this.valorMemoria.push({ id: this.valorMemoria.length, valor: this.valorCorrente});
+          //console.log utilizado somente para verificação de funcionamento
+          console.log(this.valorMemoria);
+      },
+
+      /*função com problemas devido a utilizar o valorCorrente, não será possível utilizar 2 valores de memória para
+      fazer cálculos.*/
+      utilizarValor() {
+        var nome = prompt('Qual memória quer UTILIZAR, digite a posição:');
+        this.valorCorrente = this.valorMemoria[nome];
+        this.valorCorrente = parseFloat(this.valorCorrente.valor);
+        //somente para avaliação do resultado de saída da função
+        console.log(this.valorCorrente);
+      },
+
+
+
+      excluirValor() {
+        var nome = prompt('Qual memória quer EXCLUIR, digite a posição:');
+        this.valorCorrente = this.valorMemoria.splice(nome,1);
+        this.valorCorrente = parseFloat(this.valorCorrente.valor);
+        //this.valorMemoria = this.valorCorrente.filter(this.valorCorrente);
+
+        //não consegui transformar em um valor inteiro para reutilizar no calculo, sempre retorna um Array
+        console.log(this.valorMemoria);
+        //console.log(this.valorCorrente);
       },
     },
   }
